@@ -20,9 +20,11 @@ router.get("/all", async (ctx, next) => {
     let list;
     // 从skipIndex开始查询数据,page.pageSize条数据
     let skipNum = total - (pageNum - 1) * pageSize;
+    // 如果查询的数据小于十条就按正常的数据查询返回
     if (skipNum > 10) {
       list = await query.skip(skipIndex).limit(page.pageSize);
     } else {
+      // 如果查询的数据大于十条就按十条查询返回
       list = await query.skip(skipIndex).limit(skipNum);
     }
 
