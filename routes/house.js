@@ -48,4 +48,24 @@ router.get("/all", async (ctx, next) => {
   }
 });
 
+router.get("/detail", async (ctx, next) => {
+  try {
+    // 查询所有数据
+    const { id } = ctx.request.query;
+    const res = await House.find({ id });
+    log4j.info("res", `get params:${JSON.stringify(res)}`);
+    if (res) {
+      let msg = "民宿详情信息";
+      ctx.body = util.success(
+        res,
+        msg
+      );
+    } else {
+      ctx.body = util.fail("获取民宿列表数据失败");
+    }
+  } catch (error) {
+    ctx.body = util.fail(error.msg);
+  }
+});
+
 module.exports = router;

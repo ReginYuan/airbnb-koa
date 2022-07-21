@@ -11,6 +11,7 @@ const log4j = require("./utils/log4j");
 const router = require("koa-router")();
 const users = require("./routes/users");
 const house = require("./routes/house");
+const order = require("./routes/order");
 const util = require("./utils/util");
 
 // error handler
@@ -66,6 +67,8 @@ router.prefix("/api");
 router.use(users.routes(), users.allowedMethods());
 // 加载民宿路由
 router.use(house.routes(), house.allowedMethods());
+// 加载订单路由
+router.use(order.routes(), order.allowedMethods());
 // 一级路由
 app.use(router.routes(), router.allowedMethods());
 // error-handling
